@@ -1,6 +1,6 @@
 {
-  "name": "ember-trix-editor",
-  "version": "1.0.5",
+  "name": "@jasonmitember-trix-editor",
+  "version": "1.0.6",
   "description": "An Ember.js addon that wraps the Trix editor in a component",
   "directories": {
     "doc": "doc",

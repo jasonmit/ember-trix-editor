@@ -52,7 +52,7 @@ export default Ember.Component.extend({
     $editor.on('trix-file-accept', e => {
       run(this, function() {
         if (this.attachmentsDisabled) {
-          e.preDefault();
+          e.preventDefault();
         }
 
         this['trix-file-accept'](e);
@@ -62,11 +62,12 @@ export default Ember.Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    let value = this.get('value');
+    let newValue = this.get('value');
 
-    if (this._value !== value && !this._focused) {
-      this._timer = run.scheduleOnce('afterRender', this, this._rehydrate);
-      this._value = value;
+    if (this._value !== newValue && !this._focused) {
+      run.cancel(this._timer);
+      this._timer = run.schedule('afterRender', this, this._rehydrate);
+      this._value = newValue;
     }
   },
 
@@ -96,6 +97,7 @@ export default Ember.Component.extend({
 
     let element = this._getEditor()[0];
     let pos = element.editor.getPosition();
+    console.log('updating value', this.value);
     element.editor.loadHTML(this.value);
     element.editor.setSelectedRange(pos);
   }
