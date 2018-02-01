@@ -40,11 +40,13 @@ export default Ember.Component.extend({
       .on('trix-selection-change', run.bind(this, 'trix-selection-change'));
 
     $editor.on('trix-blur', e => {
+      console.log('blur');
       this._focused = false;
       run(this, 'trix-blur', e);
     });
 
     $editor.on('trix-focus', e => {
+      console.log('focus in');
       this._focused = true;
       run(this, 'trix-focus', e);
     });
