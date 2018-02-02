@@ -12,6 +12,8 @@ export default Ember.Component.extend({
   _value: '',
   _focused: false,
   _initialized: false,
+  _timer: null,
+
   _inputId: computed('elementId', function() {
     return `trix-editor-${this.get('elementId')}`;
   }).readOnly(),
@@ -28,11 +30,6 @@ export default Ember.Component.extend({
   'trix-selection-change'() {},
   'trix-attachment-add'() {},
   'trix-attachment-remove'() {},
-
-  init() {
-    this._super();
-    this._timers = [];
-  },
 
   didInsertElement() {
     this._super();
@@ -57,12 +54,7 @@ export default Ember.Component.extend({
 
     $editor.on('trix-initialize', e => {
       run(this, 'trix-initialize', e);
-      this._timers.push(
-        run.scheduleOnce('afterRender', this, () => {
-          /* prevents doing work before it's been fully setup */
-          set(this, '_initialized', true);
-        })
-      );
+      this._initialized = true;
     });
 
     $editor.on('trix-file-accept', e => {
@@ -86,14 +78,15 @@ export default Ember.Component.extend({
       this._value !== newValue &&
       !this._focused
     ) {
-      this._timers.push(run.scheduleOnce('afterRender', this, this._rehydrate));
+      run.cancel(this._timer);
+      this._timer = run.scheduleOnce('afterRender', this, this._rehydrate);
       this._value = newValue;
     }
   },
 
   willDestroyElement() {
     this._super();
-    this._timers.forEach(timer => run.cancel(timer));
+    run.cancel(this._timer);
 
     let $editor = this._getEditor();
     $editor
