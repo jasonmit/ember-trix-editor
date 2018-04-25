@@ -1,6 +1,6 @@
 {
   "name": "@jasonmit/ember-trix-editor",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "An Ember.js addon that wraps the Trix editor in a component",
   "keywords": [
     "ember-addon",
