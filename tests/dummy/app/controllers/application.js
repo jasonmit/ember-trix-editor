@@ -1,15 +1,18 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { A } from '@ember/array';
+import { on } from '@ember/object/evented';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   events: null,
 
-  _initializeEvents: Ember.on('init', function () {
-    this.set('events', Ember.A());
+  _initializeEvents: on('init', function () {
+    this.set('events', A());
   }),
 
   actions: {
     handleTrixAction(jqEvent) {
-      this.get('events').unshiftObject(Ember.Object.create({
+      this.get('events').unshiftObject(EmberObject.create({
         type: jqEvent.type
       }));
     }

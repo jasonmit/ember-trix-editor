@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { run } from '@ember/runloop';
+import { computed } from '@ember/object';
 import layout from '../templates/components/trix-editor';
 
-const { set, run, computed } = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   attachmentsDisabled: false,
   value: '',
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   }).readOnly(),
 
   autofocusOn: computed('autofocus', function () {
-    return !!this.autofocus ? true : null;
+    return this.autofocus ? true : null;
   }).readOnly(),
 
   'trix-blur'() {},
