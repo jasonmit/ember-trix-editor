@@ -1,4 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import jQuery from 'jquery';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('trix-editor', 'Integration | Component | trix editor', {
@@ -6,7 +7,7 @@ moduleForComponent('trix-editor', 'Integration | Component | trix editor', {
 });
 
 function clearAndRender(template) {
-  $('#ember-testing').html('');
+  jQuery('#ember-testing').html('');
   this.render(template);
 }
 
@@ -122,7 +123,7 @@ test('removes trix-editor\'s event listeners on destruction', function (assert) 
   let eventsObject = jQuery._data(trixEditorEl, 'events');
   assert.ok(eventsObject, 'events are bound initially on insert');
 
-  $('#ember-testing').html('');
+  jQuery('#ember-testing').html('');
   eventsObject = jQuery._data(trixEditorEl, 'events');
   assert.notOk(eventsObject, 'events are removed on destruction');
 });
