@@ -39,6 +39,19 @@ actions: {
 }
 ```
 
+## Addon Configuration
+
+You can optionally import just `trix-core` with the following setting:
+
+```javascript
+/* ember-cli-build.js */
+const app = new EmberApp(defaults, {
+  'ember-trix-editor': {
+    coreOnly: true
+  }
+});
+```
+
 ## Contributing to Trix
 This is the first time [Channing Allen](https://twitter.com/ChanningAllen) and [Lynne Tye](https://twitter.com/lynnetye)
 have contributed to an open-source project! We welcome others to send bug reports,
